@@ -55,7 +55,7 @@ Route::middleware(['first', 'second'])->group(function () {
     });
 
 Route::get('/user/profile', function () {
-        // Uses first & second middleware...
+        // Uses first & second middleware... tesss
     });
 });
 
