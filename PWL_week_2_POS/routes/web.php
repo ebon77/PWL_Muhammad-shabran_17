@@ -1,6 +1,14 @@
 <?php
 
+
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\LevelController;
+Route::get('/', function () {
+    return view('welcome');
+});
+
+Route::get('/level', [LevelController::class, 'index']);
+
 
 use App\Http\Controllers\HomeController;
 Route::get('/', [HomeController::class, 'index']);
@@ -19,3 +27,4 @@ Route::get('/user/{id}/name/{name}', [UserController::class, 'showProfile']);
 
 use App\Http\Controllers\SalesController;
 Route::get('/sales', [SalesController::class, 'index']);
+
