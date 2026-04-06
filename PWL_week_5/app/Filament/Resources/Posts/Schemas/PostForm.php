@@ -36,12 +36,13 @@ class PostForm
                                 Section::make('Main Content')
                                     ->icon('heroicon-o-document-text')
                                     ->schema([
-                                        TextInput::make('title')
-                                            ->required(),
+                                        TextInput::make("title")
+                                        ->rules('required|min:5|max:50'),
                                             
                                         TextInput::make('slug')
-                                            ->required(),
-                                            
+                                            ->rules('required|min:3')
+                                            ->unique()
+                                            ->validationMessages(['unique' => 'Slug harus unik dan tidak boleh sama.',]),
                                         Select::make('category_id')
                                             ->relationship('category', 'name')
                                             ->required(),
@@ -70,7 +71,9 @@ class PostForm
                                     ->schema([
                                         FileUpload::make('image')
                                             ->image()
-                                            ->directory('posts'),
+                                            ->directory('posts')
+                                            ->required(),
+
                                     ]),
 
                                 // Section Pengaturan
