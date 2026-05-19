@@ -5,6 +5,8 @@ namespace App\Filament\Resources\Posts\Pages;
 use App\Filament\Resources\Posts\PostResource;
 use Filament\Actions\CreateAction;
 use Filament\Resources\Pages\ListRecords;
+use Filament\Resources\Components\Tab;
+use Illuminate\Database\Eloquent\Builder;
 
 class ListPosts extends ListRecords
 {
@@ -14,6 +16,17 @@ class ListPosts extends ListRecords
     {
         return [
             CreateAction::make(),
+        ];
+    }
+
+    public function getTabs(): array
+    {
+        return [
+            'all' => Tab::make('All Posts'),
+            'published' => Tab::make('Published')
+                ->modifyQueryUsing(fn (Builder $query) => $query->where('published', true)),
+            'draft' => Tab::make('Draft')
+                ->modifyQueryUsing(fn (Builder $query) => $query->where('published', false)),
         ];
     }
 }
