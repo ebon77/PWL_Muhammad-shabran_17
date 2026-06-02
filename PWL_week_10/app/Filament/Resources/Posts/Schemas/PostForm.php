@@ -85,6 +85,11 @@ class PostForm
                                     ->schema([
                                         DateTimePicker::make('published_at')
                                             ->required(),
+                                        Select::make('tags')
+                                            ->relationship('tags', 'name')
+                                            ->multiple()
+                                            ->preload()
+                                            ->searchable(),
                                     ]),
                             ])
                             ->columnSpan(1), // Lebar 1/3
