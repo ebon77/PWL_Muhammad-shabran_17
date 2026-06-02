@@ -1,8 +1,8 @@
 <?php
 
 namespace App\Filament\Resources\Posts\Schemas;
-namespace App\Filament\Resources\Posts\Schemas;
 
+use App\Models\Category;
 use Filament\Schemas\Schema;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Select;
@@ -43,9 +43,12 @@ class PostForm
                                             ->rules('required|min:3')
                                             ->unique()
                                             ->validationMessages(['unique' => 'Slug harus unik dan tidak boleh sama.',]),
-                                        Select::make('category_id')
-                                            ->relationship('category', 'name')
-                                            ->required(),
+                                        Select::make("category_id")
+                                            ->relationship("category", "name")
+                                            ->options(Category::all()->pluck("name", "id"))
+                                            ->required()
+                                            // ->preload()
+                                            ->searchable(),
                                             
                                         ColorPicker::make('color'),
                                     ])
